@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Facebook ad blocker
 // @namespace    https://wiki.gslin.org/wiki/FacebookAdBlocker
-// @version      0.20200817.1
+// @version      0.20211227.0
 // @description  Remove all ad from Facebook
 // @author       Gea-Suan Lin <gslin@gslin.org>
 // @match        https://www.facebook.com/*
@@ -17,7 +17,7 @@
             // aria-label="Sponsored"
             div.querySelectorAll('div[aria-label="Sponsored"]').forEach(span => {
                 console.info('Remove a Facebook ad element by aria-label="Sponsored".');
-                div.remove();
+                div.innerHTML = '<p>Post hidden.  Rule: aria-label="Sponsored"</p>';
                 return;
             });
 
@@ -25,7 +25,7 @@
             div.querySelectorAll('span').forEach(span => {
                 if (span.innerText.startsWith('Sponsored')) {
                     console.info('Remove a Facebook ad element by starting with "Sponsored".');
-                    div.remove();
+                    div.innerHTML = '<p>Post hidden.  Rule: span[innerText^="Sponsored"]</p>';
                     return;
                 }
             });
@@ -34,6 +34,7 @@
                 let span = b.closest('span');
                 if (span.innerText.startsWith('Sponsored')) {
                     console.info('Remove a Facebook ad element by detecting obfuscation elements.');
+                    div.innerHTML = '<p>Post hidden.  Rule: b span[innerText^="Sponsored"]</p>';
                     div.remove();
                     return;
                 }
